@@ -7,7 +7,9 @@
 //
 
 #import "AppDelegate.h"
-
+#import "IQKeyboardManager.h"
+#import "LeftMenuViewController.h"
+#import "SlideNavigationController.h"
 @interface AppDelegate ()
 
 @end
@@ -17,7 +19,143 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [NSThread sleepForTimeInterval:5.0];
+    CGSize iOSDeviceScreenSize = [[UIScreen mainScreen] bounds].size;
+    
+    if (iOSDeviceScreenSize.height == 480)
+    {
+        UIStoryboard *iPhone45Storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *initialViewController = [iPhone45Storyboard instantiateInitialViewController];
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        self.window.rootViewController  = initialViewController;
+        [self.window makeKeyAndVisible];
+        LeftMenuViewController *leftMenu = (LeftMenuViewController*)[iPhone45Storyboard
+                                                                     instantiateViewControllerWithIdentifier: @"LeftMenuViewController"];
+        [SlideNavigationController sharedInstance].leftMenu = leftMenu;
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:SlideNavigationControllerDidClose object:nil queue:nil usingBlock:^(NSNotification *note) {
+            NSString *menu = note.userInfo[@"menu"];
+            NSLog(@"Closed %@", menu);
+        }];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:SlideNavigationControllerDidOpen object:nil queue:nil usingBlock:^(NSNotification *note) {
+            NSString *menu = note.userInfo[@"menu"];
+            NSLog(@"Opened %@", menu);
+        }];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:SlideNavigationControllerDidReveal object:nil queue:nil usingBlock:^(NSNotification *note) {
+            NSString *menu = note.userInfo[@"menu"];
+            NSLog(@"Revealed %@", menu);
+        }];
+        
+    }else if (iOSDeviceScreenSize.height == 667){
+        UIStoryboard *iPhone45Storyboard = [UIStoryboard storyboardWithName:@"Main_Iphone6" bundle:nil];
+        UIViewController *initialViewController = [iPhone45Storyboard instantiateInitialViewController];
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        self.window.rootViewController  = initialViewController;
+        [self.window makeKeyAndVisible];
+        LeftMenuViewController *leftMenu = (LeftMenuViewController*)[iPhone45Storyboard
+                                                                     instantiateViewControllerWithIdentifier: @"LeftMenuViewController"];
+        [SlideNavigationController sharedInstance].leftMenu = leftMenu;
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:SlideNavigationControllerDidClose object:nil queue:nil usingBlock:^(NSNotification *note) {
+            NSString *menu = note.userInfo[@"menu"];
+            NSLog(@"Closed %@", menu);
+        }];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:SlideNavigationControllerDidOpen object:nil queue:nil usingBlock:^(NSNotification *note) {
+            NSString *menu = note.userInfo[@"menu"];
+            NSLog(@"Opened %@", menu);
+        }];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:SlideNavigationControllerDidReveal object:nil queue:nil usingBlock:^(NSNotification *note) {
+            NSString *menu = note.userInfo[@"menu"];
+            NSLog(@"Revealed %@", menu);
+        }];
+    }else if (iOSDeviceScreenSize.height == 736){
+        UIStoryboard *iPhone45Storyboard = [UIStoryboard storyboardWithName:@"Main_Iphone6Plus" bundle:nil];
+        UIViewController *initialViewController = [iPhone45Storyboard instantiateInitialViewController];
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        self.window.rootViewController  = initialViewController;
+        [self.window makeKeyAndVisible];
+        
+        LeftMenuViewController *leftMenu = (LeftMenuViewController*)[iPhone45Storyboard
+                                                                     instantiateViewControllerWithIdentifier: @"LeftMenuViewController"];
+        [SlideNavigationController sharedInstance].leftMenu = leftMenu;
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:SlideNavigationControllerDidClose object:nil queue:nil usingBlock:^(NSNotification *note) {
+            NSString *menu = note.userInfo[@"menu"];
+            NSLog(@"Closed %@", menu);
+        }];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:SlideNavigationControllerDidOpen object:nil queue:nil usingBlock:^(NSNotification *note) {
+            NSString *menu = note.userInfo[@"menu"];
+            NSLog(@"Opened %@", menu);
+        }];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:SlideNavigationControllerDidReveal object:nil queue:nil usingBlock:^(NSNotification *note) {
+            NSString *menu = note.userInfo[@"menu"];
+            NSLog(@"Revealed %@", menu);
+        }];
+    }
+    else{
+        UIStoryboard *iPhone45Storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *initialViewController = [iPhone45Storyboard instantiateInitialViewController];
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        self.window.rootViewController  = initialViewController;
+        [self.window makeKeyAndVisible];
+        
+        LeftMenuViewController *leftMenu = (LeftMenuViewController*)[iPhone45Storyboard
+                                                                     instantiateViewControllerWithIdentifier: @"LeftMenuViewController"];
+        [SlideNavigationController sharedInstance].leftMenu = leftMenu;
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:SlideNavigationControllerDidClose object:nil queue:nil usingBlock:^(NSNotification *note) {
+            NSString *menu = note.userInfo[@"menu"];
+            NSLog(@"Closed %@", menu);
+        }];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:SlideNavigationControllerDidOpen object:nil queue:nil usingBlock:^(NSNotification *note) {
+            NSString *menu = note.userInfo[@"menu"];
+            NSLog(@"Opened %@", menu);
+        }];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:SlideNavigationControllerDidReveal object:nil queue:nil usingBlock:^(NSNotification *note) {
+            NSString *menu = note.userInfo[@"menu"];
+            NSLog(@"Revealed %@", menu);
+        }];
+    }
+    
+    
+    [[IQKeyboardManager sharedManager] setEnable:YES];
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
+    [[IQKeyboardManager sharedManager] setShouldShowTextFieldPlaceholder:YES];
+    
+    [self copyDataBaseFile];
+
+    
+    
+    
     return YES;
+}
+
+-(void)copyDataBaseFile
+{
+    BOOL success;
+    
+    NSFileManager* fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"scrumptious.sqlite"];
+    success = [fileManager fileExistsAtPath:writableDBPath];
+    
+    if (success) return;
+    // The writable database does not exist, so copy the default to the appropriate location.
+    NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"scrumptious.sqlite"];
+    success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
+    if (!success) {
+        NSAssert1(0, @"Failed to create writable database file with message '%@'.", [error localizedDescription]);
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
